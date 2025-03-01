@@ -1,46 +1,53 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
+import Carousel from "../components/Carousel";
+import Card from "../components/Card";
+import { Product } from "../components/BasketContext";
 
 const Home: React.FC = () => {
+  const [products, setProducts] = useState<Product[]>([]);
+
+  useEffect(() => {
+    fetch("/products.json")
+      .then((res) => res.json())
+      .then((data) => setProducts(data));
+  }, []);
+  const images = [
+    "./7.jpg",
+    "./8.jpeg",
+    "./9.jpg",
+    "./10.jpg",
+    "./11.jpg",
+    "./12.jpg",
+    "./13.jpg",
+    // "./1.png",
+    // "./2.png",
+    // "./3.png",
+    // "./4.png",
+    // "./5.png",
+    // "./6.png",
+  ];
   return (
-    <div className="container mx-auto py-8">
-      <section className="mb-8">
-        <div className="bg-gradient-to-r from-blue-400 to-purple-500 p-8 text-white rounded-lg shadow-sm">
-          <h1 className="text-3xl font-bold mb-2">Welcome To Our Store</h1>
-          <p className="text-lg">
-            Discover amazing products that fit your style.
-          </p>
-          <button className="bg-white text-blue-500 font-semibold py-2 px-4 rounded mt-4 hover:bg-gray-100">
-            Shop Now
-          </button>
+    <div className="container mx-auto  ">
+      <section>
+        <Carousel images={images} />
+      </section>
+      <section className="my-20 flex flex-col justify-center ">
+        <div className="pb-2 text-5xl">Welcome to IVY Shopify</div>
+        <div className="font-semibold text-emerald-800">
+          Explore Our Latest Collections
         </div>
       </section>
-
-      <section className="mb-8">
-        <h2 className="text-2xl font-semibold mb-4">Featured Products</h2>
-        <div>list of products</div>
-      </section>
-
-      <section>
-        <h2 className="text-2xl font-semibold mb-4">Shop by Category</h2>
-        <div className="flex justify-around">
-          <a href="" className="text-blue-500 hover:text-blue-700">
-            Men's Clothing
-          </a>
-          <a href="" className="text-blue-500 hover:text-blue-700">
-            Jewelry
-          </a>
-          <a href="" className="text-blue-500 hover:text-blue-700">
-            Electronics
-          </a>
-          <a href="" className="text-blue-500 hover:text-blue-700">
-            Women's Clothing
-          </a>
+      <section className="mb-20">
+        <div className="text-2xl font-semibold mb-4">
+          Discover amazing products that fit your style.
         </div>
-      </section>
-
-      <section>
-        <h2 className="text-2xl font-semibold mb-4">All Products</h2>
-        <div>Show All products</div>
+        <div className="flex flex-row border border-gray-400 rounded-lg p-2 shadow-sm ">
+          {products.map((product) => (
+            <div className="flex m-2 border border-gray-200 rounded-lg p-2 hover:border-gray-400 shadow-sm transition duration-200 transform hover:-translate-y-1">
+              <Card key={product.id} product={product} />
+            </div>
+          ))}
+        </div>
       </section>
     </div>
   );
