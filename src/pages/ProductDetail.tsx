@@ -82,7 +82,7 @@ const ProductDetail: React.FC = () => {
                 className="flex border items-center border-gray-300 m-2 rounded-lg p-1 justify-center gap-2 hover:border-gray-800"
               >
                 <ChevronLeft size={17} />
-                Back
+                Go to Products
               </NavLink>
             </div>
           </div>

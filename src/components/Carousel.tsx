@@ -6,15 +6,15 @@ interface CarouselProps {
   showArrow?: boolean;
   showDots?: boolean;
   haveTimer?: boolean;
-  duration?:number;
+  duration?: number;
 }
 
 const Carousel: React.FC<CarouselProps> = ({
   images,
-  showArrow=false,
-  showDots=true,
-  haveTimer=true,
-  duration=3000
+  showArrow = false,
+  showDots = true,
+  haveTimer = true,
+  duration = 3000,
 }) => {
   const [currentImgIndex, setCurrentImgIndex] = useState(0);
 
@@ -34,7 +34,7 @@ const Carousel: React.FC<CarouselProps> = ({
         clearInterval(timer);
       }
     };
-  }, [haveTimer,duration, images.length]);
+  }, [haveTimer, duration, images.length]);
 
   const goToPrevious = () => {
     setCurrentImgIndex((preIndex) =>
@@ -49,7 +49,7 @@ const Carousel: React.FC<CarouselProps> = ({
   };
   return (
     <div>
-      <div className="flex flex-row   items-center justify-between ">
+      <div className="flex flex-row items-center justify-between ">
         {showArrow && (
           <button
             onClick={goToPrevious}
@@ -62,7 +62,7 @@ const Carousel: React.FC<CarouselProps> = ({
           </button>
         )}
 
-        <div className="border border-gray-200 rounded-lg p-2 hover:border-gray-400 shadow-sm w-full">
+        <div className="rounded-lg w-full">
           <img
             src={images[currentImgIndex]}
             alt={`Carousel Image ${currentImgIndex + 1}`}
@@ -87,7 +87,7 @@ const Carousel: React.FC<CarouselProps> = ({
           {images.map((_, index) => (
             <button
               key={index}
-              className={`h-2 w-2 rounded-full transition-all duration-200  ${
+              className={`h-2 w-2 rounded-full duration-500  ${
                 index === currentImgIndex ? "bg-slate-500 w-4" : "bg-slate-200"
               }`}
               onClick={() => setCurrentImgIndex(index)}

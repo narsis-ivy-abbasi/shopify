@@ -7,6 +7,7 @@ import Products from "./pages/Products";
 import Layout from "./components/Layout";
 import { BasketProvider } from "./components/BasketContext";
 import ProductDetail from "./pages/ProductDetail";
+import { ToastContainer } from "react-toastify";
 
 function App() {
   return (
@@ -21,6 +22,7 @@ function App() {
             <Route path="/:productId" element={<ProductDetail />} />
           </Routes>
         </Layout>
+        <ToastContainer position="bottom-right" hideProgressBar={true} />
       </BasketProvider>
     </>
   );

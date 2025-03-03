@@ -33,20 +33,29 @@ const Home: React.FC = () => {
       </section>
       <section className="my-20 flex flex-col justify-center ">
         <div className="pb-2 text-5xl">Welcome to IVY Shopify</div>
-        <div className="font-semibold text-emerald-800">
-          Explore Our Latest Collections
-        </div>
       </section>
       <section className="mb-20">
-        <div className="text-2xl font-semibold mb-4">
-          Discover amazing products that fit your style.
-        </div>
-        <div className="flex flex-row border border-gray-400 rounded-lg p-2 shadow-sm ">
+        <div className="flex flex-row rounded-lg p-2 shadow-sm overflow-auto ">
           {products.map((product) => (
             <div className="flex m-2 border border-gray-200 rounded-lg p-2 hover:border-gray-400 shadow-sm transition duration-200 transform hover:-translate-y-1">
               <Card key={product.id} product={product} />
             </div>
           ))}
+        </div>
+      </section>
+      <section className="flex ">
+        <div className="w-1/2">
+          <img src="./14.jpg" alt="Shopping" className="rounded-lg" />
+        </div>
+        <div className="flex flex-col items-start w-1/2 text-left pl-8">
+          <label className="text-2xl font-bold pb-8">How to ...</label>
+          <div className="  text-justify">
+            Lorem ipsum dolor sit amet consectetur adipisicing elit. Aspernatur
+            nobis nemo praesentium? Debitis impedit quasi incidunt, quos,
+            tenetur est, facilis dolorum porro assumenda sapiente magni
+            eligendi. Quam unde, aliquid iure explicabo impedit maxime deserunt,
+            ullam ad ab accusamus nobis praesentium!
+          </div>
         </div>
       </section>
     </div>
