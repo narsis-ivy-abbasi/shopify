@@ -1,6 +1,6 @@
 import { Mail, MapPinHouse, PhoneCall } from "lucide-react";
-
-import React, { useRef, useState } from "react";
+import { useForm } from "react-hook-form";
+import React, { useState } from "react";
 import emailjs from "emailjs-com";
 import { toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
@@ -12,25 +12,21 @@ const templateId = import.meta.env.VITE_EMAILJS_TEMPLATE_ID;
 emailjs.init(publicKey);
 
 const Contact: React.FC = () => {
-  const form = useRef<HTMLFormElement>(null);
+  const { register, handleSubmit, reset } = useForm();
   const [isSending, setIsSending] = useState(false);
 
-  const sendEmail = (e: React.FormEvent<HTMLFormElement>) => {
-    e.preventDefault();
+  const sendEmail = async (data: any) => {
     setIsSending(true);
-    if (form.current) {
-      emailjs.sendForm(serviceId, templateId, form.current).then(
-        (response) => {
-          console.log("SUCCESS!", response.status, response.text);
-          toast.success("Email sent successfully!");
-          setIsSending(false);
-        },
-        (err) => {
-          console.log("FAILED...", err);
-          toast.error("Failed to send email. Please try again.");
-          setIsSending(false);
-        }
-      );
+    try {
+      await emailjs.send(serviceId, templateId, data);
+      console.log("SUCCESS!");
+      toast.success("Email sent successfully!");
+      reset();
+    } catch (err) {
+      console.log("FAILED...", err);
+      toast.error("Failed to send email. Please try again.");
+    } finally {
+      setIsSending(false);
     }
   };
 
@@ -42,7 +38,7 @@ const Contact: React.FC = () => {
             src="./contact5.webp"
             alt="About Us"
             width={1000}
-            className="rounded-lg hover:opacity-75"
+            className="rounded-lg hover:opacity-75 hover:border hover:border-gray-400"
           />
         </div>
         <div className="flex gap-3">
@@ -51,7 +47,7 @@ const Contact: React.FC = () => {
               src="./contact3.jpg"
               alt="About Us"
               width={300}
-              className="rounded-lg w-full object-cover hover:opacity-75"
+              className="rounded-lg w-full object-cover hover:opacity-75 hover:border hover:border-gray-400"
               style={{ height: "250px" }}
             />
           </div>
@@ -60,7 +56,7 @@ const Contact: React.FC = () => {
               src="./contact2.jpg"
               alt="About Us"
               width={300}
-              className="rounded-lg w-full object-cover hover:opacity-75"
+              className="rounded-lg w-full object-cover hover:opacity-75 hover:border hover:border-gray-400"
               style={{ height: "250px" }}
             />
           </div>
@@ -101,24 +97,21 @@ const Contact: React.FC = () => {
         </div>
 
         <form
-          ref={form}
-          onSubmit={sendEmail}
+          onSubmit={handleSubmit(sendEmail)}
           className="flex flex-col gap-3 w-full"
         >
           <div className="flex justify-between gap-2 ">
             <label className="w-1/2">
               FirstName:
               <input
-                type="text"
-                name="firstName"
+                {...register("firstName")}
                 className="border rounded-md w-full px-3 py-1"
               />
             </label>
             <label className="w-1/2">
               LastName:
               <input
-                type="text"
-                name="lastName"
+                {...register("lastName")}
                 className="border rounded-md w-full px-3 py-1"
               />
             </label>
@@ -127,8 +120,7 @@ const Contact: React.FC = () => {
           <label>
             Email:
             <input
-              type="text"
-              name="email"
+              {...register("email")}
               className="border rounded-md w-full px-3 py-1"
             />
           </label>
@@ -136,7 +128,7 @@ const Contact: React.FC = () => {
           <label>
             Message:
             <textarea
-              name="message"
+              {...register("message")}
               className="border rounded-md w-full px-3 py-1"
               rows={4}
             />

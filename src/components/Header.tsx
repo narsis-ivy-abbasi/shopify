@@ -1,7 +1,6 @@
 import { Menu, Slack, X } from "lucide-react";
 import React, { useState } from "react";
 import { NavLink } from "react-router-dom";
-
 import { useBasket } from "./BasketContext";
 
 const Header: React.FC = () => {
@@ -23,9 +22,11 @@ const Header: React.FC = () => {
       <div className="flex items-center">
         <Slack /> <label className="font-mono font-bold px-2">IVY</label>
       </div>
-      <div className="flex gap-2">
+      <div className="flex gap-4">
         <div className="relative flex text-gray-950  ">
-          <span className="absolute -top-1 -right-2 bg-green-500 rounded-full px-1 text-[8px]">{totalQuantity>9? "9+" : totalQuantity}</span>
+          <span className="absolute -top-3 -right-2 bg-green-500 text-white rounded-full px-1 text-sm">
+            {totalQuantity > 9 ? "9+" : totalQuantity}
+          </span>
           <div>🛒</div>
         </div>
 

@@ -1,6 +1,5 @@
 import React from "react";
 import { Product } from "./BasketContext";
-import { Link } from "react-router-dom";
 import AddToBasket from "./AddToBasket";
 import Card from "./Card";
 

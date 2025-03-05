@@ -6,7 +6,7 @@ const Basket: React.FC = () => {
   const { totalQuantity, totalPrice, basket, removeFromBasket } = useBasket();
 
   return (
-    <div className="border-2 fixed bg-white shadow-md m-2 rounded-md hover:border-gray-800">
+    <div className="border-2 lg:fixed bg-white shadow-md  mx-2 rounded-md hover:border-gray-800 w-72">
       <div className="text-gray-950"> 🛒 Basket</div>
       <div className="flex flex-col w-72">
         <div className=" text-left font-light">

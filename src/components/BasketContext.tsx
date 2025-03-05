@@ -1,4 +1,4 @@
-import React, { createContext, useContext, useState } from "react";
+import React, { createContext, useContext, useEffect, useState } from "react";
 
 // Define the product interface based on your JSON data
 export interface Product {
@@ -44,7 +44,30 @@ interface BasketProviderProps {
 }
 
 export const BasketProvider: React.FC<BasketProviderProps> = ({ children }) => {
-  const [basket, setBasket] = useState<BasketItem[]>([]);
+  const [basket, setBasket] = useState<BasketItem[]>(() => {
+    const storedBasket = localStorage.getItem("basket");
+    return storedBasket ? JSON.parse(storedBasket) : [];
+  });
+
+  useEffect(() => {
+    localStorage.setItem("basket", JSON.stringify(basket));
+  }, [basket]);
+
+  // Listen for storage events
+  useEffect(() => {
+    const handleStorageChange = () => {
+      const storedBasket = localStorage.getItem("basket");
+      if (storedBasket) {
+        setBasket(JSON.parse(storedBasket));
+      }
+    };
+    
+    window.addEventListener("storage", handleStorageChange);
+
+    return () => {
+      window.removeEventListener("storage", handleStorageChange);
+    };
+  }, []);
 
   const addToBasket = (product: Product, quantity: number) => {
     setBasket((prevBasket) => {
@@ -52,7 +75,7 @@ export const BasketProvider: React.FC<BasketProviderProps> = ({ children }) => {
 
       if (existingProduct) {
         return prevBasket.map((item) =>
-          item.id === product.id ? { ...item, quantity } : item
+          item.id === product.id ? { ...item, quantity:item.quantity + quantity } : item
         );
       } else {
         return [...prevBasket, { ...product, quantity }];

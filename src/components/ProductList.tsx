@@ -1,21 +1,19 @@
-import React, { useEffect, useState } from "react";
 import ProductCard from "./ProductCard";
 import { Product } from "./BasketContext";
 
-const ProductList:React.FC= () => {
-  const [products, setProducts] = useState<Product[]>([]);
-
-  useEffect(() => {
-    fetch("/products.json")
-      .then((res) => res.json())
-      .then((data) => setProducts(data));
-  }, []);
-
+interface ProductListProps {
+  products: Product[];
+}
+const ProductList: React.FC<ProductListProps> = ({ products }) => {
   return (
-    <div className="flex flex-wrap justify-between">
-      {products.map((product) => (
-        <ProductCard key={product.id} product={product} />
-      ))}
+    <div className="flex flex-wrap justify-evenly   md:justify-between">
+      {products.length > 0 ? (
+        products.map((product) => (
+          <ProductCard key={product.id} product={product} />
+        ))
+      ) : (
+        <p className="text-center w-full text-gray-500">No products found.</p>
+      )}
     </div>
   );
 };

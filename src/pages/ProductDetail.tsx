@@ -29,9 +29,9 @@ const ProductDetail: React.FC = () => {
       });
   }, [productId]);
   return (
-    <div className="flex ">
-      <div className="w-3/4">
-        <div className="flex justify-evenly items-center ">
+    <div className="flex flex-col lg:flex-row items-center lg:items-start">
+      <div className="lg:w-3/4">
+        <div className="flex flex-col md:flex-row lg:justify-evenly items-center ">
           <div className="max-w-72">
             <img
               src={foundProduct?.image}
@@ -50,7 +50,7 @@ const ProductDetail: React.FC = () => {
                 {foundProduct?.price}
               </label>
             </div>
-            <div className="text-slate-600 text-sm text-justify mb-24 p-2">
+            <div className="text-slate-600 text-sm text-justify md:mb-24 p-2">
               <p>
                 {foundProduct
                   ? showFullDescription
@@ -88,7 +88,7 @@ const ProductDetail: React.FC = () => {
           </div>
         </div>
       </div>
-      <div>
+      <div className="flex justify-center lg:justify-normal ">
         <Basket />
       </div>
     </div>
