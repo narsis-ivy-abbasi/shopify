@@ -61,7 +61,10 @@ const Home: React.FC = () => {
           className="flex flex-row rounded-lg p-2 overflow-hidden "
         >
           {products.map((product) => (
-            <div className="flex m-2 border border-gray-200 rounded-lg p-2 hover:border-gray-400 shadow-sm transition duration-200 transform hover:-translate-y-1">
+            <div
+              key={product.id}
+              className="flex m-2 border border-gray-200 rounded-lg p-2 hover:border-gray-400 shadow-sm transition duration-200 transform hover:-translate-y-1"
+            >
               <Card product={product} key={product.id} />
             </div>
           ))}

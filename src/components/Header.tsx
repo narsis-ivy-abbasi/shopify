@@ -39,10 +39,10 @@ const Header: React.FC = () => {
         {/* desktop menu  */}
         <nav className="hidden md:block">
           <ul className="flex md:flex-row m-0 p-0 items-center">
-            {navLinks.map((nav) => (
-              <li className="mx-2 md:my-0">
+            {navLinks.map((nav, index) => (
+              <li key={index} className="mx-2 md:my-0">
                 <NavLink
-                  to={nav.to}
+                  to={nav.to}                  
                   className={({ isActive }) =>
                     `font-normal text-black  ${
                       isActive ? "font-black underline" : ""
@@ -64,10 +64,13 @@ const Header: React.FC = () => {
         >
           <nav className="flex flex-col justify-center items-center ">
             <ul className="flex flex-col  items-center w-full  ">
-              {navLinks.reverse().map((nav) => (
-                <li className="text-xl my-2 hover:bg-gray-300 flex rounded-lg py-1 w-full">
+              {navLinks.reverse().map((nav, index) => (
+                <li
+                  key={index}
+                  className="text-xl my-2 hover:bg-gray-300 flex rounded-lg py-1 w-full"
+                >
                   <NavLink
-                    to={nav.to}
+                    to={nav.to}                    
                     className={({ isActive }) =>
                       `font-normal text-black w-full  ${
                         isActive ? "font-black underline" : ""

@@ -20,9 +20,13 @@ const Products: React.FC = () => {
   const handleFilterChange = (filters: { name: string; sortBy: string }) => {
     const { name, sortBy } = filters;
 
-    let filtered = products.filter((product) =>
-      product.title.toLowerCase().includes(name.toLowerCase())
-    );
+    let filtered = [...products]; //all products
+    // Filter by name only if the input is not empty
+    if (name.trim() !== "") {
+      filtered = filtered.filter((product) =>
+        product.title.toLowerCase().includes(name.toLowerCase())
+      );
+    }
 
     // Sorting Logic
     if (sortBy === "lowToHigh") {
